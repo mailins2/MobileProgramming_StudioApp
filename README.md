@@ -6,6 +6,7 @@ Link đề tài : https://drive.google.com/file/d/1t9lsnCXKiVDet_4oVYwvaO1VB97oS
 
 
 Đề tài : Ứng dụng Đặt lịch chụp ảnh và Quản lý Studio
+
 1.Tìm kiếm studio theo khu vực, phong cách (cưới, chân dung, nghệ thuật,...)
 
 2.Xem chi tiết studio: ảnh mẫu, đánh giá, dịch vụ, giá cả
