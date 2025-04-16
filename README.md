@@ -7,6 +7,10 @@ Link đề tài : https://drive.google.com/file/d/1t9lsnCXKiVDet_4oVYwvaO1VB97oS
 
 Đề tài : Ứng dụng Đặt lịch chụp ảnh và Quản lý Studio
 
+Mô tả: Ứng dụng giúp người dùng tìm và đặt lịch chụp ảnh tại các studio gần mình, đồng thời hỗ trợ studio
+quản lý lịch hẹn, khách hàng và các gói dịch vụ. Phù hợp cho các nhóm sinh viên thực hiện dự án có yếu tố
+đặt lịch + vai trò người dùng + hệ thống dịch vụ.
+
 1.Tìm kiếm studio theo khu vực, phong cách (cưới, chân dung, nghệ thuật,...)
 
 2.Xem chi tiết studio: ảnh mẫu, đánh giá, dịch vụ, giá cả
