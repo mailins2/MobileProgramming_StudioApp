@@ -22,3 +22,16 @@ quản lý lịch hẹn, khách hàng và các gói dịch vụ. Phù hợp cho 
 5.Lịch sử đã chụp: hiển thị danh sách buổi chụp đã hoàn tất
 
 6.Studio quản lý lịch: xem danh sách khách hàng, gói dịch vụ, trạng thái thanh toán
+
+Màu chủ đạo : 
+
+  trắng : #f4f4f1 rgb(244,244,241), 
+  
+  xám : #e1dbd7 rgb(225,219,215), 
+  
+  đỏ rượu : #3b0510 rgb(59,5,16), 
+  
+  đen : #221516 rgb(34,21,22)
+
+![image](https://github.com/user-attachments/assets/18d313c2-3cdd-41ca-a3f2-d6ac94019a75)
+
