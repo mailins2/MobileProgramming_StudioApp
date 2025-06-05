@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'screens/index.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'screens/signIn.dart';
+import 'providers/userProvider.dart';
+import 'package:provider/provider.dart';
+import 'screens/forgotPassword.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,7 +13,12 @@ Future<void> main() async {
     anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiY3R0bHFwcWRwYXF0Ym1peXBpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg1ODk0MDcsImV4cCI6MjA2NDE2NTQwN30.b3ivL5ZfA3FRsbekvepgR67nETqvfmcukLO-E8si_gg',
   );
   final client = Supabase.instance.client;
-  runApp(MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => UserProvider()),
+    ],
+    child: MyApp(),
+  ),);
 }
 
 class MyApp extends StatelessWidget {
@@ -38,7 +47,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Default(),
+      home: SignIn(),
     );
   }
 }

@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  provider: ^6.1.0
   font_awesome_flutter: ^10.5.0
   supabase_flutter: ^2.0.0
   flutter:
@@ -36,6 +37,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  image_picker: ^1.0.7
+  path: ^1.9.0
+  shared_preferences: ^2.2.2
 
 
 dev_dependencies:
@@ -64,17 +68,9 @@ flutter:
       fonts:
         - asset: lib\assets\fonts\Abhaya_Libre\AbhayaLibre-ExtraBold.ttf
   assets:
-    - lib\assets\images\avatar.png
-    - lib\assets\images\post1\1.jpg
-    - lib\assets\images\post1\2.jpg
-    - lib\assets\images\post1\3.jpg
-    - lib\assets\images\post1\4.jpg
-    - lib\assets\images\post1\5.jpg
-    - lib\assets\images\post1\6.jpg
-    - lib\assets\images\post1\7.jpg
-    - lib\assets\images\post1\8.jpg
-    - lib\assets\images\post1\9.jpg
     - lib/assets/images/defaultImage.png
+    - lib/assets/data/data.json
+    - lib/assets/images/avatar-default.jpg
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

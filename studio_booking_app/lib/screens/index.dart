@@ -3,13 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:studio_booking_app/constants/colorpalette.dart';
 import 'package:studio_booking_app/screens/homepage.dart';
 import 'package:studio_booking_app/screens/search.dart';
-
+import 'package:studio_booking_app/providers/userProvider.dart';
+import 'package:provider/provider.dart';
 class Default extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     return DefaultPage();
   }
-
 }
 
 class DefaultPage extends State<StatefulWidget>{
@@ -25,6 +25,10 @@ class DefaultPage extends State<StatefulWidget>{
       body: bodyState,
       bottomNavigationBar: BottomNavigationBar(
         onTap: (int index){
+          final user = Provider.of<UserProvider>(context,listen: false).user;
+          if (user != null) {
+            print("Id người dùng: ${user.id}");
+          }
           if (index ==0){
             setState(() {
               bodyState=Homepage();

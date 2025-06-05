@@ -35,9 +35,9 @@ class Home extends State<StatefulWidget> {
         child: Container(
           child: ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return Post(context,index);
+              return Post(context,index,10);
             },
-            itemCount: 2,
+            itemCount: 10,
           ),
         ),
       ),
