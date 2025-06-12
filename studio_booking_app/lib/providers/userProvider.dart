@@ -6,6 +6,8 @@ class UserProvider extends ChangeNotifier {
 
   UserModel? get user => _user;
 
+  bool get isLoggedIn => _user != null;
+
   void setUser(UserModel user) {
     _user = user;
     notifyListeners();

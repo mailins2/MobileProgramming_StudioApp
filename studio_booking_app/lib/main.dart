@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:studio_booking_app/providers/StudioProvider.dart';
 import 'screens/index.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'screens/signIn.dart';
 import 'providers/userProvider.dart';
 import 'package:provider/provider.dart';
 import 'screens/forgotPassword.dart';
+import 'screens/booking.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +19,7 @@ Future<void> main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => UserProvider()),
+      ChangeNotifierProvider(create: (_) => StudioProvider()),
     ],
     child: MyApp(),
   ),);
@@ -28,6 +32,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: Locale('vi'),
+      supportedLocales: [
+        Locale('en'),
+        Locale('vi'),
+      ],
+      localizationsDelegates: [
+        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.

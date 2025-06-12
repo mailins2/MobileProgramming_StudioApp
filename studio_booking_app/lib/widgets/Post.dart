@@ -5,7 +5,10 @@ import 'package:studio_booking_app/constants/colorpalette.dart';
 import 'package:studio_booking_app/widgets/ShowComment.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide PostgrestResponse;
-import 'package:supabase/supabase.dart';
+import 'package:studio_booking_app/screens/booking.dart';
+import 'package:studio_booking_app/screens/userstudio_page.dart';
+import 'package:studio_booking_app/providers/userProvider.dart';
+import 'package:provider/provider.dart';
 
 final supabase = Supabase.instance.client;
 
@@ -88,43 +91,57 @@ Widget Post(BuildContext context, int index, int itemcount) {
             final post = data[index];
             final servicePackage = post['ServicePackage'] ?? {};
             final studioAccount = servicePackage['StudioAccount'] ?? {};
-
+            final spID = servicePackage['spID']?? {};
             final studioAvatarRaw = studioAccount['studioAvatar'] ?? '';
             final studioAvatar = studioAvatarRaw.trim();
             final studioName = studioAccount['studioName'] ?? 'Studio name';
             final postPhotos = post['PostPhotos'] as List<dynamic>? ?? [];
+            final studioID = studioAccount['studioID']?? '';
+
+            final userProvider = Provider.of<UserProvider>(context);
+            final user = userProvider.user;
 
             return Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 30,
-                        height: 30,
-                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          image: DecorationImage(
-                            image: (studioAvatar != null && studioAvatar.toString().isNotEmpty)
-                                ? NetworkImage(studioAvatar)
-                                : AssetImage('lib/assets/images/defaultImage.png') as ImageProvider,
-                            fit: BoxFit.cover,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UserStudioPage(studioID: studioID),
+                        ),
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 30,
+                          height: 30,
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            image: DecorationImage(
+                              image: (studioAvatar.isNotEmpty)
+                                  ? NetworkImage(studioAvatar)
+                                  : AssetImage('lib/assets/images/defaultImage.png') as ImageProvider,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        studioName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Roboto',
-                          fontSize: 15,
+                        SizedBox(width: 10),
+                        Text(
+                          studioName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Roboto',
+                            fontSize: 15,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
 
                   Center(
@@ -301,7 +318,19 @@ Widget Post(BuildContext context, int index, int itemcount) {
                       Row(
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (user != null && user.id != null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => BookingScreen(userId: user.id!, spId: spID)),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Bạn cần đăng nhập để đặt dịch vụ.')),
+                                );
+                              }
+                            },
+
                             child: Text('Đặt dịch vụ', style: TextStyle(color: Colors.white, fontSize: 12)),
                             style: TextButton.styleFrom(
                               backgroundColor: red,

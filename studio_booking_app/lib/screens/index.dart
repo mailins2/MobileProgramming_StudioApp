@@ -1,80 +1,78 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:studio_booking_app/constants/colorpalette.dart';
 import 'package:studio_booking_app/screens/homepage.dart';
 import 'package:studio_booking_app/screens/search.dart';
 import 'package:studio_booking_app/providers/userProvider.dart';
 import 'package:provider/provider.dart';
-class Default extends StatefulWidget{
+import 'package:studio_booking_app/screens/nhatki.dart';
+import 'package:studio_booking_app/screens/notification_page.dart';
+import 'package:studio_booking_app/screens/taikhoan_user_page.dart';
+class Default extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return DefaultPage();
   }
 }
 
-class DefaultPage extends State<StatefulWidget>{
+class DefaultPage extends State<Default> {
   Widget bodyState = Homepage();
-  int selectedIndex =0;
+  int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
+
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('BottomNavigationBar Demo'),
-      //   backgroundColor: Colors.cyan,
-      // ),
       body: bodyState,
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (int index){
-          final user = Provider.of<UserProvider>(context,listen: false).user;
-          if (user != null) {
-            print("Id người dùng: ${user.id}");
-          }
-          if (index ==0){
-            setState(() {
-              bodyState=Homepage();
-              selectedIndex=0;
-            });
-          }
-          else if (index ==1){
-            setState(() {
+        currentIndex: selectedIndex,
+        onTap: (int index) {
+          setState(() {
+            selectedIndex = index;
+
+            if (index == 0) {
+              bodyState = Homepage();
+            } else if (index == 1) {
               bodyState = SearchPage();
-              selectedIndex=1;
-            });
-          }
-          else{
-            setState(() {
-              // bodyState =Test();
-              selectedIndex=2;
-            });
-          }
+            } else if (index == 2) {
+              bodyState = NhatKiDemo();
+            } else if (index == 3) {
+              if (user != null && user.id != null) {
+                bodyState = ThongBaoPage(currentUserId: user.id);
+              } else {
+                // Có thể hiển thị thông báo, điều hướng đến đăng nhập, hoặc giữ nguyên giao diện hiện tại
+                print("Người dùng chưa đăng nhập hoặc thiếu thông tin ID.");
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Bạn cần đăng nhập để xem thông báo.')),
+                );
+              }
+            } else {
+              if (user != null && user.id != null) {
+                bodyState = AccountUserDemo(userID: user.id);
+              } else {
+                // Có thể hiển thị thông báo, điều hướng đến đăng nhập, hoặc giữ nguyên giao diện hiện tại
+                print("Người dùng chưa đăng nhập hoặc thiếu thông tin ID.");
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Bạn cần đăng nhập để xem thông báo.')),
+                );
+              }
+            }
+          });
         },
         backgroundColor: white,
-        // elevation: 0.0,
         selectedItemColor: red,
         unselectedItemColor: red,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Trang chủ'
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Tìm kiếm '),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.event_note),
-            label: 'Nhật ký ',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_outlined),
-            label: 'Thông báo ',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
-            label: 'Tài khoản ',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Trang chủ'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Tìm kiếm'),
+          BottomNavigationBarItem(icon: Icon(Icons.event_note), label: 'Nhật ký'),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications_outlined), label: 'Thông báo'),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: 'Tài khoản'),
         ],
       ),
     );
   }
-
 }
